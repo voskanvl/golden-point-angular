@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {CBRrequest, ResponseByValuteName, Valute} from "./cbr.service";
 import {HttpClient} from "@angular/common/http";
-import {catchError, firstValueFrom, from, map, mergeMap, Observable, of, switchMap, tap} from "rxjs";
+import {catchError, delay, from, map, mergeMap, Observable, of, switchMap, tap} from "rxjs";
 import {fromFetch} from "rxjs/fetch";
 
 @Injectable({
@@ -21,26 +21,24 @@ export class PreviousDaysService {
           fromFetch(url).pipe(
             // tap(v => console.log('fetch', url, v)),
             switchMap(res => res.json()),
-            tap(v=>{
-              console.log(CharCode, v.Valute, v.Valute[CharCode])
-            }),
             map((v) => {
               return {date: v.Date, valute: v.Valute[CharCode]};
             }),
-            catchError(error=>of({error, url})),
-            tap(v => this.cache.set(CharCode, of(v)))
+            delay(500),
+            tap(v => this.cache.set(CharCode, of(v))),
+            catchError(error => of({error, url})),
           )
         )
       )
     return res
   }
 
-  getByValuteName(CharCode: Valute['CharCode'], days: number):ResponseByValuteName {
+  getByValuteName(CharCode: Valute['CharCode'], days: number): ResponseByValuteName {
     if (this.cache.has(CharCode)) return this.cache.get(CharCode)
     const arrayUrls = this.getUrlsArray(days,
       "https://www.cbr-xml-daily.ru/archive/",
       "/daily_json.js")
-    const res =  this.fillCache(CharCode, arrayUrls);
+    const res = this.fillCache(CharCode, arrayUrls);
     return res
   }
 

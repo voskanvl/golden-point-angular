@@ -6,13 +6,18 @@ import {Component, Input} from '@angular/core';
   styleUrls: ['./tooltip.component.sass']
 })
 export class TooltipComponent {
-  @Input() event!: MouseEvent
+  @Input() event: MouseEvent | null = null
+
+  get avaible() {
+    return !!this.getTargetName()
+  }
 
   getTargetName() {
-    const target = this.event.target
-    const name = (target as Element).closest('li')?.getAttribute('name')
-
-    console.log('name', name)
-    return name
+    if (this.event) {
+      const target = this.event.target
+      const name = (target as Element).closest('li')?.getAttribute('name')
+      return name
+    }
+    return null
   }
 }

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {isError, Valute, ValuteError} from "../../cbr.service";
-import {PreviousDaysService} from "../../previous-days-service.service";
+import {PreviousDaysService} from "@app/previous-days-service.service";
 
 
 @Component({

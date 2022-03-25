@@ -1,4 +1,4 @@
-<ul (mousemove)="tootip.event=$event">
+<ul (mousemove)="tootip.event=$event" class="main">
   <!--  <app-item-row *ngFor="" [valute]="valute"></app-item-row>-->
   <app-tooltip #tootip></app-tooltip>
   <app-item-row *ngFor="let valute of valutes | async" [valute]="valute"></app-item-row>

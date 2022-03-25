@@ -1,4 +1,6 @@
-<div class="tooltip"
-     [ngStyle]="{top: event.pageY+6+'px',left: event.pageX+6+'px'}">
-  {{getTargetName()}}
-</div>
+<ng-container *ngIf="event">
+  <div [ngClass]="{tooltip: true, avaible: avaible}"
+       [ngStyle]="{top: event.pageY+6+'px',left: event.pageX+6+'px'}">
+    {{getTargetName()}}
+  </div>
+</ng-container>
