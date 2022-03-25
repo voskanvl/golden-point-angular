@@ -1,0 +1,4 @@
+<ul [ngClass]="{history: true, open}">
+  <app-row *ngFor="let valute of courses " [valute]="valute.valute" [date]="valute.date"></app-row>
+  <!--  <div *ngFor="let valute of courses">{{valute | json}}</div>-->
+</ul>
