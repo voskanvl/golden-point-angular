@@ -1,4 +1,8 @@
 <ul [ngClass]="{history: true, open}">
-  <app-row *ngFor="let valute of courses " [valute]="valute.valute" [date]="valute.date"></app-row>
-  <!--  <div *ngFor="let valute of courses">{{valute | json}}</div>-->
+  <ng-container *ngIf="courses.length; else loading">
+    <app-row *ngFor="let valute of courses " [valute]="valute.valute" [date]="valute.date"></app-row>
+  </ng-container>
 </ul>
+<ng-template #loading>
+  <div class="loading">Данные загружаются ...</div>
+</ng-template>

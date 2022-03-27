@@ -8,6 +8,7 @@ import {RowComponent} from './components/row/row.component';
 import {HistoryComponent} from './components/history/history.component';
 import {HttpClientModule} from "@angular/common/http";
 import {TooltipComponent} from './components/tooltip/tooltip.component';
+import { IntersectDirective } from './intersect.directive';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import {TooltipComponent} from './components/tooltip/tooltip.component';
     RowComponent,
     HistoryComponent,
     TooltipComponent,
+    IntersectDirective,
   ],
   imports: [
     BrowserModule,

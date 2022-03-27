@@ -1,10 +1,11 @@
-import {Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {isError, Valute} from "../../cbr.service";
 
 @Component({
   selector: 'app-row',
   templateUrl: './row.component.html',
-  styleUrls: ['./row.component.sass']
+  styleUrls: ['./row.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RowComponent {
   @Input() valute!: Valute

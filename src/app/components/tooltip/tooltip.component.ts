@@ -1,9 +1,9 @@
-import {Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-tooltip',
   templateUrl: './tooltip.component.html',
-  styleUrls: ['./tooltip.component.sass']
+  styleUrls: ['./tooltip.component.sass'],
 })
 export class TooltipComponent {
   @Input() event: MouseEvent | null = null

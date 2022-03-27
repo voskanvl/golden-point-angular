@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import {isError, Valute, ValuteError} from "../../cbr.service";
 import {PreviousDaysService} from "@app/previous-days-service.service";
 
@@ -6,17 +6,18 @@ import {PreviousDaysService} from "@app/previous-days-service.service";
 @Component({
   selector: 'app-history',
   templateUrl: './history.component.html',
-  styleUrls: ['./history.component.sass']
+  styleUrls: ['./history.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HistoryComponent implements OnInit {
   @Input() valute!: Valute | ValuteError
   @Input() open: boolean = false
+
   courses: { date: string, valute: Valute }[] = []
   errors: { error: boolean, url: string }[] = []
 
-  constructor(public previousDays: PreviousDaysService) {
+  constructor(public previousDays: PreviousDaysService, private cdr: ChangeDetectorRef) {
   }
-
 
   ngOnInit(): void {
     if (!isError(this.valute)) this.previousDays
@@ -27,9 +28,9 @@ export class HistoryComponent implements OnInit {
           } else {
             this.courses.push(v);
           }
+          this.cdr.detectChanges()
         },
       })
   }
 }
 
-//TODO: сделать PreviousDaysService сервис, который должен предоставлять данные по валюте за предыдущие дни
