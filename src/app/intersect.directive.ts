@@ -37,7 +37,7 @@ export class IntersectDirective {
   get inScreen(): Observable<number> {
     const windowHeight = window.innerHeight;
     const out$ = new Subject<any>();
-    return interval(100).pipe(
+    return interval(200).pipe(
       map(() => {
         const topElement = (
           this.item.nativeElement as Element
