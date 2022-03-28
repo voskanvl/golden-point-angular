@@ -9,18 +9,20 @@ export class IntersectionService {
     return new Observable((observer) => {
       const intersectionObserver = new IntersectionObserver(
         (entries: IntersectionObserverEntry[]) => {
+          console.log('🚀 ~ entries', entries);
+
           observer.next(entries);
         }
       );
 
       intersectionObserver.observe(element.nativeElement);
 
-      return () => {
-        intersectionObserver.disconnect();
-      };
+      // return () => {
+      //   intersectionObserver.disconnect();
+      // };
     }).pipe(
-      map((entry) => (entry as IntersectionObserverEntry[])[0].isIntersecting)
-      // distinctUntilChanged()
+      map((entry) => (entry as IntersectionObserverEntry[])[0].isIntersecting),
+      distinctUntilChanged()
     );
   }
 }

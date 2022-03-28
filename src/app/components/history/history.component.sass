@@ -1,13 +1,26 @@
 .history
-  margin-top: -0.5rem
   height: 0
-  transition: height 0.4s
+  transition: height 0.4s, margin 0.5s
   overflow: scroll
   background: #333
   padding: 0 0.5rem
-
+  margin: 0 -1rem
   &.open
     height: 50vh
+    margin: 1rem -1rem 0
+    // animation: open 0.4s forwards
 
 .loading
   color: #fff
+
+:host
+  flex: 1 1 100%
+
+// @keyframes open
+//   0%
+//     margin: 0rem -1rem
+//   99%
+//     height: 50vh
+//   100%
+//     height: fit-content
+//     margin: 1rem -1rem 0

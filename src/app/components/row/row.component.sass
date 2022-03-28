@@ -1,10 +1,29 @@
 .row
+  // display: grid
+  // grid-template-areas: "date code value percent" "history history history history"
   display: flex
+  flex-wrap: wrap
   justify-content: space-evenly
+  align-items: start
   padding: 1rem
   background: #eeea
   border-radius: 6px
   margin: 0.5rem 0px
   & > *
+    flex: 1 1 24%
     text-align: center
 
+// .date
+//   grid-area: date
+
+// .CharCode
+//   grid-area: code
+
+// .value
+//   grid-area: value
+
+// .percent
+//   grid-area: percent
+
+// app-history
+//   grid-area: history

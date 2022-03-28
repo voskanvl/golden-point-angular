@@ -1,15 +1,13 @@
 import {
-  AfterViewChecked,
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   OnInit,
-  QueryList,
   ViewChild,
-  ViewChildren,
 } from '@angular/core';
 import { CBRService, Valute } from './cbr.service';
-import { filter, map, Observable } from 'rxjs';
+import { filter, map, Observable, take } from 'rxjs';
 import { IntersectionService } from '@app/intersection.service';
 import { ItemRowComponent } from '@components/item-row/item-row.component';
 
@@ -23,10 +21,30 @@ export class AppComponent implements OnInit, AfterViewInit {
   item!: ElementRef;
   title = 'golden-point-angular';
   valutes!: Observable<Valute[]>;
-  constructor(public cbr: CBRService) {}
+  courses: Valute[] = [];
+
+  currentIndexCourses = -1;
+  courses1: Valute[] = [];
+
+  constructor(public cbr: CBRService, private cdr: ChangeDetectorRef) {}
+
+  intersect(event: boolean) {
+    if (event) {
+      this.currentIndexCourses++;
+      this.courses1.push(this.courses[this.currentIndexCourses]);
+    }
+  }
+
+  isInScreen(event: number) {
+    this.currentIndexCourses++;
+    this.courses1.push(this.courses[this.currentIndexCourses]);
+  }
 
   ngOnInit(): void {
     this.valutes = this.cbr.data.pipe(map((v) => Object.values(v.Valute)));
+    this.valutes.pipe(take(1)).subscribe((v) => {
+      this.courses = v;
+    });
   }
   ngAfterViewInit(): void {}
 }

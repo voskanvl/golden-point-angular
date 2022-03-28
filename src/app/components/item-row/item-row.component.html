@@ -1,4 +1,8 @@
 <li class="item" [attr.name]="valute.Name">
-  <app-row [valute]="valute" (click)="och.set(valute.ID)"></app-row>
-  <app-history [valute]="valute" [open]="valute.ID===och.get()"></app-history>
+  <app-row [valute]="valute" (click)="och.set(valute.ID)">
+    <app-history
+      [valute]="valute"
+      [open]="valute.ID === och.get()"
+    ></app-history>
+  </app-row>
 </li>

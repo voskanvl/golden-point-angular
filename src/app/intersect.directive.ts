@@ -1,17 +1,52 @@
-import { AfterViewInit, Directive, ElementRef, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Directive,
+  ElementRef,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  exhaustMap,
+  interval,
+  map,
+  Observable,
+  of,
+  Subject,
+  take,
+  takeUntil,
+} from 'rxjs';
 import { IntersectionService } from './intersection.service';
 
 @Directive({
   selector: '[intersection]',
 })
-export class IntersectDirective implements AfterViewInit {
+export class IntersectDirective {
+  @Output() intersect: EventEmitter<boolean> = new EventEmitter();
+  @Output() isInScreen: EventEmitter<number> = new EventEmitter();
   constructor(public inter: IntersectionService, public item: ElementRef) {
-    console.log('ngAfterViewInit', this.item.nativeElement);
-
     this.inter
       .createAndObserve(this.item)
       // .pipe(filter((isVisible: boolean) => isVisible))
-      .subscribe(console.log);
+      .subscribe((v) => {
+        console.log('directive', v);
+        this.intersect.emit(v);
+      });
+    this.inScreen.subscribe((v) => this.isInScreen.emit(v));
   }
-  ngAfterViewInit(): void {}
+  get inScreen(): Observable<number> {
+    const windowHeight = window.innerHeight;
+    const out$ = new Subject<any>();
+    return interval(100).pipe(
+      map(() => {
+        const topElement = (
+          this.item.nativeElement as Element
+        ).getBoundingClientRect().top;
+        if (windowHeight < topElement) out$.next(topElement);
+        return topElement;
+      }),
+      takeUntil(out$),
+      take(100)
+    );
+  }
 }

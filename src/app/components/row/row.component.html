@@ -1,11 +1,12 @@
-<div class="row" *ngIf="isValute(); else error">
-  <div class="date" *ngIf="date">{{ date}}</div>
-  <div class="CharCode">{{ valute.CharCode}}</div>
-  <div class="value">{{valute.Value}}</div>
-  <div class="percent">{{percent}}%</div>
-</div>
-<ng-template #error>
+<ng-container *ngIf="isValute(); else error">
   <div class="row">
-    Данные загружаются ...
+    <div class="date" *ngIf="date">{{ date }}</div>
+    <div class="CharCode">{{ valute.CharCode }}</div>
+    <div class="value">{{ valute.Value }}</div>
+    <div class="percent">{{ percent }}%</div>
+    <ng-content class="history"></ng-content>
   </div>
+</ng-container>
+<ng-template #error>
+  <div class="row">Данные загружаются ...</div>
 </ng-template>

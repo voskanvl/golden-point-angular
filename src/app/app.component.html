@@ -2,8 +2,14 @@
   <!--  <app-item-row *ngFor="" [valute]="valute"></app-item-row>-->
   <app-tooltip #tootip></app-tooltip>
   <app-item-row
-    *ngFor="let valute of valutes | async"
+    *ngFor="let valute of courses1"
     [valute]="valute"
   ></app-item-row>
-  <div class="observable" intersection></div>
+  <!-- <div *ngFor="let valute of courses1">{{ valute | json }}</div> -->
+  <div
+    class="observable"
+    intersection
+    (intersect)="intersect($event)"
+    (isInScreen)="isInScreen($event)"
+  ></div>
 </ul>
